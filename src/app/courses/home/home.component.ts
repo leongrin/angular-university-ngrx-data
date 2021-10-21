@@ -1,41 +1,39 @@
-import {Component, OnInit} from '@angular/core';
-import {compareCourses, Course} from '../model/course';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Course} from '../model/course';
 import {Observable} from 'rxjs';
 import {defaultDialogConfig} from '../shared/default-dialog-config';
 import {EditCourseDialogComponent} from '../edit-course-dialog/edit-course-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import {map, shareReplay} from 'rxjs/operators';
-import {CoursesHttpService} from '../services/courses-http.service';
+import {MatDialog} from '@angular/material/dialog';
+import {map} from 'rxjs/operators';
 import {CourseEntityService} from '../services/course-entity.service';
 
 
-
 @Component({
-    selector: 'home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+  selector: 'home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
 
-    promoTotal$: Observable<number>;
+  promoTotal$: Observable<number>;
 
-    beginnerCourses$: Observable<Course[]>;
+  beginnerCourses$: Observable<Course[]>;
 
-    advancedCourses$: Observable<Course[]>;
+  advancedCourses$: Observable<Course[]>;
 
 
-    constructor(
-      private dialog: MatDialog,
-      private courseEntityServ: CourseEntityService) {
+  constructor(
+    private dialog: MatDialog,
+    private courseEntityServ: CourseEntityService) {
 
-    }
+  }
 
-    ngOnInit() {
-      this.reload();
-    }
+  ngOnInit() {
+    this.reload();
+  }
 
   reload() {
-
 
 
     this.beginnerCourses$ = this.courseEntityServ.entities$
@@ -50,9 +48,9 @@ export class HomeComponent implements OnInit {
       );
 
     this.promoTotal$ = this.courseEntityServ.entities$
-        .pipe(
-            map(courses => courses.filter(course => course.promo).length)
-        );
+      .pipe(
+        map(courses => courses.filter(course => course.promo).length)
+      );
 
   }
 
