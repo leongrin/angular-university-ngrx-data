@@ -11,6 +11,7 @@ import {getMatIconFailedToSanitizeUrlError} from '@angular/material/icon';
 
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css'],
